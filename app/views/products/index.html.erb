@@ -1,9 +1,14 @@
 <div>
 <h1 class="text-center"> All products</h1>
 
+<p>
+<%= link_to "Back to Home", root_path, class: "btn btn-primary" %>
+<%= link_to "Add a product", new_product_path, class: "btn btn-success" %>
+</p>
+
 <ul>
 <% @products.each do |product| %>
-<li><%= product.name %> (<%= product.url %>) </li>
+<li><%= link_to product.name, product_path(product)  %> <%= product.url %> </li>
 <% end %>
 </ul>
 <div>
