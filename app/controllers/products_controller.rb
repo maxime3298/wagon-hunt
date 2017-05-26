@@ -1,55 +1,44 @@
-  class ProductsController < ApplicationController
-
-#  PRODUCTS = [
-#               {name: "Kudoz", category: "Pro"},
-#                {name: "uSlide", category: "Education"},
-#                {name: "Hubum", category: "Lifestyle"},
-#                {name: "Roadstr", category: "Lifestyle"}
-#             ]
-def index
-  # @products = ["kudoz", "uSlide", "Hubum", "Roadstr"]
-  # render plain: products.join(", ")
-#   if params[:filter]
-#    @products = PRODUCTS.select {|product| product[:category] == params[:filter]}
-#   else
-#    @products = PRODUCTS
-#  end
-  @products = Product.all
-end
-
-def show
-#  @product = PRODUCTS[params[:id].to_i]
-  @product = Product.find(params[:id])
-end
-
-def new
-  @product = Product.new
-
-end
-
-def create
-  @product = Product.new(product_params)
-  if @product.save
+class ProductsController < ApplicationController
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
+  def index
+    @products = Product.all
+  end
+  def show
+  #after refacto  @product = Product.find(params[:id])
+  end
+  def new
+    @product = Product.new
+  end
+  def create
+    @product = Product.new(product_params)
+    if @product.save
+        redirect_to products_path
+      else
+        render :new
+      end
+  end
+  def edit
+  #after refacto  @product = Product.find(params[:id])
+  end
+  def update
+  #after refacto  @product = Product.find(params[:id])
+      if @product.update(product_params)
+        redirect_to products_path
+      else
+        render :edit
+      end
+  end
+  def destroy
+  #after refacto  @product = Product.find(params[:id])
+      @product.destroy
       redirect_to products_path
-    else
-      render :new
-    end
-end
+  end
 
-def edit
-end
-
-def update
-end
-
-def destroy
-end
-
-private
-
-def product_params
-  params.require(:product).permit(:name, :url)
-end
-
-
-end
+  private
+  def product_params
+    params.require(:product).permit(:name, :url)
+  end
+  def find_product
+      @product = Product.find(params[:id])
+  end
+  end

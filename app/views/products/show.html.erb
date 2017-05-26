@@ -9,5 +9,7 @@ url: <%= @product.url %>
 </h3>
 
 <p class="text-center">
-<%= link_to "Back to the list", products_path %>
+<%= link_to "Edit", edit_product_path(@product), class:"btn btn-warning" %>
+<%= link_to "Delete", product_path(@product), method: :delete, class:"btn btn-danger" %>
+<%= link_to "Back to the list", products_path, class:"btn btn-primary" %>
 </p>
